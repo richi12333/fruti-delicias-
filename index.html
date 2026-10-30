@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruti Delicias | El sabor natural que alegra tu día</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rosa: '#F45172',
+                        amarillo: '#FFC83D',
+                        verde: '#70B94D',
+                        cafe: '#8B542F',
+                        crema: '#FFF2D9',
+                    },
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="font-poppins bg-white text-gray-800 antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm py-4 sticky top-0 z-50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <!-- Logotipo -->
+            <div class="flex items-center gap-2">
+                <!-- Icono de hojita (Verde natural) -->
+                <svg class="w-8 h-8 text-verde" fill="currentColor" viewBox="0 0 24 24"><path d="M17.5,11.4c0-4.6-3.8-8.4-8.4-8.4c-1.3,0-2.6,0.3-3.8,0.9c1,1.5,1.5,3.3,1.5,5.1c0,3.6-2.2,6.8-5.6,8.1 c1.6,2.2,4.2,3.6,7,3.6c4.6,0,8.4-3.8,8.4-8.4c0-0.3,0-0.6-0.1-0.9C17.2,11.4,17.4,11.4,17.5,11.4z"/></svg>
+                <h1 class="font-fredoka text-3xl font-bold text-rosa tracking-wide">Fruti Delicias</h1>
+            </div>
+            
+            <!-- ZONA B: Menú principal de navegación -->
+            <div class="hidden md:flex items-center gap-8 font-semibold text-cafe">
+                <a href="#inicio" class="hover:text-rosa transition-colors">Inicio</a>
+                <a href="#nosotros" class="hover:text-rosa transition-colors">Nosotros</a>
+                <a href="#productos" class="hover:text-rosa transition-colors">Productos</a>
+                <a href="#testimonios" class="hover:text-rosa transition-colors">Testimonios</a>
+            </div>
+
+            <!-- ZONA A: Barra superior y herramientas (Buscador, Carrito, Perfil) -->
+            <div class="flex items-center gap-4 text-cafe">
+                <!-- Icono Buscar -->
+                <button onclick="toggleSearch()" class="hover:text-rosa transition-colors p-1" aria-label="Buscar">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+                <!-- Icono Carrito -->
+                <button onclick="toggleCart()" class="hover:text-rosa transition-colors p-1 relative" aria-label="Carrito de compras">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-amarillo text-cafe text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">0</span>
+                </button>
+                <!-- Icono Perfil -->
+                <button onclick="showToast('Iniciando sesión... 👤')" class="hover:text-rosa transition-colors p-1" aria-label="Perfil de cuenta">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Barra de Búsqueda Desplegable -->
+        <div id="search-bar" class="absolute top-full left-0 w-full bg-white shadow-md p-4 hidden z-40 border-t border-crema transform -translate-y-2 opacity-0 transition-all duration-300">
+            <div class="max-w-3xl mx-auto flex gap-2">
+                <input type="text" placeholder="Buscar licuados, paletas..." class="w-full bg-gray-50 border border-gray-200 rounded-full px-6 py-2 focus:outline-none focus:border-rosa focus:ring-1 focus:ring-rosa font-poppins text-sm text-gray-700">
+                <button onclick="showToast('Simulando búsqueda... 🔍'); toggleSearch();" class="bg-rosa text-white px-6 py-2 rounded-full font-semibold hover:bg-opacity-90 transition-colors text-sm">Buscar</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="inicio" class="bg-crema relative overflow-hidden">
+        <!-- Decoración de fondo -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-rosa opacity-10"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-verde opacity-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 relative z-10 flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-1/2 text-center md:text-left">
+                <h2 class="font-fredoka text-5xl md:text-6xl font-bold text-rosa leading-tight mb-6">
+                    ¡Fruti Delicias, el sabor natural que alegra tu día!
+                </h2>
+                <p class="text-lg md:text-xl text-cafe mb-8 font-light">
+                    Nuestra propuesta combina sabor, frescura, variedad y creatividad para ofrecerte una experiencia deliciosa en cada producto. ¡Atrévete a probar la frescura de la naturaleza!
+                </p>
+                <a href="#productos" class="inline-block bg-amarillo text-cafe font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+                    ¡Quiero probarlos!
+                </a>
+            </div>
+            <div class="w-full md:w-1/2">
+                <img src="55.jpg" alt="Licuados frescos" class="rounded-3xl shadow-2xl border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500">
+            </div>
+        </div>
+    </header>
+
+    <!-- ¿Qué somos? Section -->
+    <section id="nosotros" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="inline-block mb-4 p-4 bg-crema rounded-full">
+                <svg class="w-10 h-10 text-verde" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h3 class="font-fredoka text-4xl font-bold text-rosa mb-6">¿Qué es Fruti Delicias?</h3>
+            <p class="text-lg text-gray-600 leading-relaxed">
+                Somos un negocio dedicado a la elaboración y venta de productos deliciosos y refrescantes preparados a base de frutas naturales. Nuestro propósito es ofrecer a los estudiantes y a la comunidad escolar productos frescos, variados, atractivos y a precios súper accesibles. ¡Cargamos tus recreos de energía y sabor!
+            </p>
+        </div>
+    </section>
+
+    <!-- Productos Section -->
+    <section id="productos" class="py-20 bg-crema">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="font-fredoka text-4xl font-bold text-center text-rosa mb-16">Nuestras Delicias</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                
+                <!-- Card 1 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="h-56 overflow-hidden">
+                        <img src="7457.jpg.webp" alt="Licuados de frutas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8 text-center">
+                        <h4 class="font-fredoka text-2xl font-bold text-cafe mb-3">Licuados de frutas</h4>
+                        <p class="text-gray-600 text-sm mb-6">
+                            Bebidas preparadas al instante con frutas 100% naturales y leche o agua, como a ti más te guste. ¡Pura energía!
+                        </p>
+                        <button onclick="addToCart('Licuados de frutas', '7457.jpg.webp')" class="bg-rosa text-white font-semibold px-6 py-2 rounded-full w-full hover:bg-opacity-90 transition-colors">Lo quiero</button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="h-56 overflow-hidden">
+                        <img src="23.jpg.webp" alt="Paletas de frutas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8 text-center">
+                        <h4 class="font-fredoka text-2xl font-bold text-cafe mb-3">Paletas con Chocolate</h4>
+                        <p class="text-gray-600 text-sm mb-6">
+                            Frutas congeladas bañadas en nuestro delicioso chocolate con complementos como galleta, chispas o nueces.
+                        </p>
+                        <button onclick="addToCart('Paletas con Chocolate', '23.jpg.webp')" class="bg-rosa text-white font-semibold px-6 py-2 rounded-full w-full hover:bg-opacity-90 transition-colors">Las quiero</button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1505394033641-40c6ad1178d7?auto=format&fit=crop&w=600&q=80" alt="Helados de frutas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8 text-center">
+                        <h4 class="font-fredoka text-2xl font-bold text-cafe mb-3">Helados de frutas</h4>
+                        <p class="text-gray-600 text-sm mb-6">
+                            Helados artesanales elaborados con diferentes sabores frutales. La mejor opción para refrescarse y disfrutar.
+                        </p>
+                        <button onclick="addToCart('Helados de frutas', 'https://images.unsplash.com/photo-1505394033641-40c6ad1178d7?auto=format&fit=crop&w=600&q=80')" class="bg-rosa text-white font-semibold px-6 py-2 rounded-full w-full hover:bg-opacity-90 transition-colors">Lo quiero</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ZONA C: Cuerpo de página dinámico (Módulo de confianza / Prueba social) -->
+    <section id="testimonios" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="font-fredoka text-4xl font-bold text-center text-rosa mb-4">Lo que dicen de nosotros</h3>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Nuestros clientes ya comprobaron la frescura de Fruti Delicias. ¡Mira sus experiencias!</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Reseña 1 -->
+                <div class="bg-crema p-6 rounded-2xl shadow-sm border border-orange-100">
+                    <div class="flex text-amarillo mb-3">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-cafe font-light italic mb-4">"¡Los mejores licuados! Super frescos y te dan toda la energía para las clases. Mi favorito es el de fresa con plátano."</p>
+                    <p class="font-bold text-verde">Mariana G.</p>
+                </div>
+                
+                <!-- Reseña 2 -->
+                <div class="bg-crema p-6 rounded-2xl shadow-sm border border-orange-100">
+                    <div class="flex text-amarillo mb-3">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-cafe font-light italic mb-4">"Tienen que probar las paletas cubiertas de chocolate, les ponen unas chispas increíbles. Precios muy buenos para estudiantes."</p>
+                    <p class="font-bold text-verde">Diego L.</p>
+                </div>
+                
+                <!-- Reseña 3 -->
+                <div class="bg-crema p-6 rounded-2xl shadow-sm border border-orange-100">
+                    <div class="flex text-amarillo mb-3">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-cafe font-light italic mb-4">"El helado de mango es una joya. Siempre pido uno después de la escuela. Muy recomendado para los días de calor."</p>
+                    <p class="font-bold text-verde">Sofía M.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZONA D: Pie de Página organizado en 3 columnas -->
+    <footer class="bg-cafe text-crema pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                
+                <!-- Logo y Descripción Corta -->
+                <div class="col-span-1 md:col-span-1">
+                    <h2 class="font-fredoka text-3xl font-bold mb-4 text-amarillo">Fruti Delicias</h2>
+                    <p class="text-sm font-light opacity-80">
+                        ¡El sabor natural que alegra tu día! Hecho con amor para la comunidad escolar.
+                    </p>
+                </div>
+
+                <!-- Columna 1: Atención y Ayuda -->
+                <div>
+                    <h4 class="font-fredoka text-xl text-rosa mb-4 font-semibold">Atención y Ayuda</h4>
+                    <ul class="space-y-2 text-sm font-light opacity-90">
+                        <li><a href="#" onclick="showToast('Abriendo documento legal... 📄'); return false;" class="hover:text-amarillo transition-colors">Preguntas frecuentes</a></li>
+                        <li><a href="#" onclick="showToast('Abriendo documento legal... 📄'); return false;" class="hover:text-amarillo transition-colors">Políticas de envíos</a></li>
+                        <li><a href="#" onclick="showToast('Abriendo documento legal... 📄'); return false;" class="hover:text-amarillo transition-colors">Políticas de devoluciones</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 2: Comunidad / Fidelidad -->
+                <div>
+                    <h4 class="font-fredoka text-xl text-rosa mb-4 font-semibold">Comunidad</h4>
+                    <ul class="space-y-2 text-sm font-light opacity-90">
+                        <li><a href="#" onclick="showToast('Abriendo documento legal... 📄'); return false;" class="hover:text-amarillo transition-colors">Nuestras Redes Sociales</a></li>
+                        <li><a href="#" onclick="showToast('Abriendo documento legal... 📄'); return false;" class="hover:text-amarillo transition-colors">Programa de Fidelidad</a></li>
+                        <li><a href="#" onclick="showToast('Abriendo documento legal... 📄'); return false;" class="hover:text-amarillo transition-colors">Blog Natural</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Legal -->
+                <div>
+                    <h4 class="font-fredoka text-xl text-rosa mb-4 font-semibold">Legal</h4>
+                    <ul class="space-y-2 text-sm font-light opacity-90">
+                        <li><a href="#" onclick="showToast('Abriendo documento legal... 📄'); return false;" class="hover:text-amarillo transition-colors">Aviso de Privacidad</a></li>
+                        <li><a href="#" onclick="showToast('Abriendo documento legal... 📄'); return false;" class="hover:text-amarillo transition-colors">Términos y Condiciones</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div class="border-t border-crema/20 pt-8 flex justify-center gap-4 text-sm opacity-60">
+                <p>&copy; 2026 Fruti Delicias. Todos los derechos reservados.</p>
+                 <p>&copy; INTEGRANTES:RUIZ SALTO RICARDO, SANTIBAÑEZ LARA JOSE EMILIO, CUEVAS PEREIRA ISIS SAHORY, LOZORNIO CORTEZ JEFFERSON RAFEL, SILVA AVIÑA ALEXANDRA</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlay oscuro para cuando se abra el carrito -->
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/30 z-[55] hidden opacity-0 transition-opacity duration-300"></div>
+
+    <!-- Carrito Lateral Desplegable -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 w-80 max-w-full h-full bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-crema">
+            <h3 class="font-fredoka text-2xl text-rosa font-bold">Tu Carrito</h3>
+            <button onclick="toggleCart()" class="text-gray-500 hover:text-rosa p-1">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 flex flex-col gap-4">
+            <p class="text-gray-500 text-center text-sm mt-10">Tu carrito está vacío.</p>
+        </div>
+        <div class="p-6 border-t border-gray-100 bg-gray-50">
+            <button onclick="showToast('Simulando pago... 💳'); toggleCart();" class="w-full bg-amarillo text-cafe font-bold py-3 rounded-full hover:bg-yellow-400 transition-colors shadow-sm">Pagar ahora</button>
+        </div>
+    </div>
+
+    <!-- Contenedor para las notificaciones Toast -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[70] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Script de interactividad -->
+    <script>
+        // --- 1. Lógica del Toast ---
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            toast.className = 'bg-cafe text-crema px-6 py-3 rounded-xl shadow-2xl transform transition-all duration-300 translate-y-10 opacity-0 font-poppins text-sm md:text-base flex items-center gap-3 border border-amarillo/30';
+            toast.innerHTML = `<span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            }, 10);
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // --- 2. Lógica del Buscador ---
+        function toggleSearch() {
+            const searchBar = document.getElementById('search-bar');
+            if (searchBar.classList.contains('hidden')) {
+                searchBar.classList.remove('hidden');
+                setTimeout(() => {
+                    searchBar.classList.remove('-translate-y-2', 'opacity-0');
+                }, 10);
+            } else {
+                searchBar.classList.add('-translate-y-2', 'opacity-0');
+                setTimeout(() => {
+                    searchBar.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // --- 3. Lógica del Carrito Lateral ---
+        let cart = [];
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            
+            if (sidebar.classList.contains('translate-x-full')) {
+                // Abrir
+                sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+            } else {
+                // Cerrar
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        function addToCart(productName, imageSrc) {
+            cart.push({ name: productName, img: imageSrc });
+            updateCartUI();
+            showToast('¡' + productName + ' al carrito! 🛒');
+            
+            // Efecto visual de que se agregó (abrir un segundo y cerrar, opcional)
+            // toggleCart(); setTimeout(() => toggleCart(), 2000);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            showToast('Producto eliminado 🗑️');
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartBadge = document.getElementById('cart-badge');
+            
+            // Actualizar número del carrito
+            cartBadge.textContent = cart.length;
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center text-sm mt-10">Tu carrito está vacío.</p>';
+                return;
+            }
+            
+            // Renderizar los productos
+            cartItemsContainer.innerHTML = cart.map((item, index) => `
+                <div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+                    <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg border border-gray-50">
+                    <div class="flex-1">
+                        <h4 class="font-semibold text-cafe text-sm">${item.name}</h4>
+                        <p class="text-xs text-rosa font-bold">1x Porción</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-gray-400 hover:text-red-500 transition-colors p-1" title="Eliminar">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
